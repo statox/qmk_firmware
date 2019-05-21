@@ -6,8 +6,13 @@
  * Modifications and features:
  *
  * Function layout
- * - Add brightness modifications on k and l
- * - Invert V- and V+ on m and ,
+ * - Change brightness with Left and Right
+ * - Change volume with Up and Down
+ * - Mute with RShift
+ * - Move mouse with hjkl
+ * - Clic mouse with u and i
+ * - Toggle LED with V
+ * - Change LED brightness with c and b
  *
  * Base layout
  * - Use KC_LSPO and KC_RSPC (i.e shift when held, parenthesis when taped)
@@ -43,21 +48,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,----------------------------------------------------------------.
    * |   | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12| Delete| Ins|
    * |----------------------------------------------------------------|
-   * |     |   | ↑ |   |   |   |   |   |   |   |   |   |   |     |Home|
+   * |     |   | ↑ |   |   |   |   |Ms1|Ms2|   |   |   |   |     |Home|
    * |-------------------------------------------------------    -----|
-   * |       | ← | ↓ | → |   |   |   |   |B- |B+ |   |  |   |    | End|
+   * |       | ← | ↓ | → |   |   |MsL|MsD|MsU|MsL|   |  |   |    | End|
    * |----------------------------------------------------------------|
-   * |     |   |   |   | L-|LED| L+|   | V-|  V+|Mut|  | MsBtn|Up|MsBn|
+   * |     |   |   |   | L-|LED| L+|   |   |    |   |  | Mute |V+|    |
    * |----------------------------------------------------------------|
-   * |    |    |    |                       |   |   |    | Lt| Dn| Rt |
+   * |    |    |    |                       |   |   |    | B-| V-| B+ |
    * `----------------------------------------------------------------'
    */
   [_FL] = LAYOUT_iso(
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_INS,  \
-    _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_HOME, \
-    _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, KC_BRID, KC_BRIU, _______, _______, _______, _______, KC_END,  \
-    _______, _______, _______, _______, BL_DEC,  BL_TOGG, BL_INC,  _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, KC_BTN1, KC_MS_U, KC_BTN2, \
-    _______, _______, _______,                   _______,                            _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
+    _______, _______, KC_UP,   _______, _______, _______, _______, KC_BTN1, KC_BTN2, _______, _______, _______, _______,          KC_HOME, \
+    _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______, _______, _______, KC_END,  \
+    _______, _______, _______, _______, BL_DEC,  BL_TOGG, BL_INC,  _______, _______, _______, _______, _______, KC_MUTE, KC_VOLU, _______, \
+    _______, _______, _______,                   _______,                            _______, _______, _______, KC_BRID, KC_VOLD, KC_BRIU
 	),
 };
 
