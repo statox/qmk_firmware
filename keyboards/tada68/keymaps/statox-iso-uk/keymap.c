@@ -17,10 +17,49 @@
  * Base layout
  * - Use KC_LSPO and KC_RSPC (i.e shift when held, parenthesis when taped)
  * - Use CAPS to switch to the function layer like FN
+ * - Tap danse on the E key to switch between e, é, è and ê //TODO Check if it would be better on another layout
  */
 
 #define _BL 0
 #define _FL 1
+
+/*
+ * Tap Dance Declarations
+ */
+enum {
+  E_AC
+};
+
+/*
+ * Tap Dance Definitions
+ */
+
+// Switch between e, é, è and ê
+void accent_e (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 4) {
+        unicode_input_start();
+        register_hex(0x00ea);
+        unicode_input_finish();
+    } else if (state->count == 3) {
+        unicode_input_start();
+        register_hex(0x00e8);
+        unicode_input_finish();
+    } else if (state->count == 2) {
+        unicode_input_start();
+        register_hex(0x00e9);
+        unicode_input_finish();
+    } else {
+        register_code(KC_E);
+        unregister_code(KC_E);
+    }
+}
+
+/*
+ * Tap Dance Registrations
+ */
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [E_AC] = ACTION_TAP_DANCE_FN (accent_e)
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -38,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_BL] = LAYOUT_iso(
     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_GRV,  \
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,          KC_DEL,  \
+    KC_TAB,  KC_Q,    KC_W,    TD(E_AC),KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,          KC_DEL,  \
     MO(_FL), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT,  KC_PGUP, \
     KC_LSPO, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC, KC_UP,   KC_PGDN, \
     KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_RALT, MO(_FL), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
@@ -64,6 +103,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, BL_DEC,  BL_TOGG, BL_INC,  _______, _______, _______, _______, _______, KC_MUTE, KC_VOLU, _______, \
     _______, _______, _______,                   _______,                            _______, _______, _______, KC_BRID, KC_VOLD, KC_BRIU
 	),
+};
+
+/*
+ * Set up the proper unicode mode for linux
+ */
+void matrix_init_user(void) {
+	set_unicode_input_mode(UC_LNX); // or UC_WINC
 };
 
   /* Keymap Template
