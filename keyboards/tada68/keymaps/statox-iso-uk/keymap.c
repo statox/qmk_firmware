@@ -5,6 +5,9 @@
  *
  * Modifications and features:
  *
+ * QMK Features
+ * AUTO_SHIFT_ENABLE with NO_AUTO_SHIFT_ALPHA
+ *
  * Function layout
  * - Change brightness with Left and Right
  * - Change volume with Up and Down
@@ -110,22 +113,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Keymap _FL1: Function Layer 1
    * ,----------------------------------------------------------------.
-   * |   | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12| Delete| Ins|
+   * |   | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12| Delete|  1*|
    * |----------------------------------------------------------------|
-   * |     |   |   |Eac|   |   | ← | ↓ | ↑ | → |   |   |   |     |Home|
+   * |     |   |   |Eac|   |   | ← | ↓ | ↑ | → |   |   |   |     |  2*|
    * |-------------------------------------------------------    -----|
-   * |       |Aac|   |   |Ms1|Ms2|MsL|MsD|MsU|MsL|   |  |   |    | End|
+   * |       |Aac|   |   |Ms1|Ms2|MsL|MsD|MsU|MsL|   |  |   |    |  3*|
    * |----------------------------------------------------------------|
-   * |     |   |   |   | L-|LED| L+|   |   |    |   |  | Mute |V+|    |
+   * |     |   |   |   | L-|LED| L+|   |   |    |   |  | Mute |V+|  4*|
    * |----------------------------------------------------------------|
    * |    |    |    |                       |   |   |    | B-| V-| B+ |
    * `----------------------------------------------------------------'
+   *
+   * 1* to 4* => Autoshift configuration (To remove after experiment)
+   *  - 1*  Raise the Autoshift timeout
+   *  - 2*  Lower the Autoshift timeout
+   *  - 3*  Toggle the Autoshift feature
+   *  - 4*  Report the current Autoshift timeout
    */
   [_FL] = LAYOUT_iso(
-    _______, KC_F1,    KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_INS,  \
-    _______, _______,  _______, TD(E_AC), _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,          KC_HOME, \
-    _______, TD(A_AC), _______, _______,  KC_BTN1, KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______, _______, _______, KC_END,  \
-    _______, _______,  _______, _______,  BL_DEC,  BL_TOGG, BL_INC,  _______, _______, _______, _______, _______, KC_MUTE, KC_VOLU, _______, \
+    _______, KC_F1,    KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_ASUP, \
+    _______, _______,  _______, TD(E_AC), _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,          KC_ASDN, \
+    _______, TD(A_AC), _______, _______,  KC_BTN1, KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______, _______, _______, KC_ASTG, \
+    _______, _______,  _______, _______,  BL_DEC,  BL_TOGG, BL_INC,  _______, _______, _______, _______, _______, KC_MUTE, KC_VOLU, KC_ASRP, \
     _______, _______,  _______,                    _______,                            _______, _______, _______, KC_BRID, KC_VOLD, KC_BRIU
 	),
 };
