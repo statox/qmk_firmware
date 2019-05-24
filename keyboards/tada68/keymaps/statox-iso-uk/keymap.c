@@ -41,7 +41,8 @@ enum {
  */
 // Switch between é, è, ê and e
 void accent_e (qk_tap_dance_state_t *state, void *user_data) {
-    switch (state->count) {
+    int nbOfCases = 3;
+    switch (state->count % nbOfCases) {
         case 1:
             unicode_input_start();
             register_hex(0x00e9);   // é
@@ -52,12 +53,13 @@ void accent_e (qk_tap_dance_state_t *state, void *user_data) {
             register_hex(0x00e8); // è
             unicode_input_finish();
             break;
-        case 3:
+        case 0:
             unicode_input_start();
             register_hex(0x00ea); // ê
             unicode_input_finish();
             break;
         default:
+            // Should not happen
             register_code(KC_E);
             unregister_code(KC_E);
     }
@@ -65,18 +67,20 @@ void accent_e (qk_tap_dance_state_t *state, void *user_data) {
 
 // Switch between à, â and a
 void accent_a (qk_tap_dance_state_t *state, void *user_data) {
-    switch (state->count) {
+    int nbOfCases = 2;
+    switch (state->count % nbOfCases) {
         case 1:
             unicode_input_start();
             register_hex(0x00e0);   // à
             unicode_input_finish();
             break;
-        case 2:
+        case 0:
             unicode_input_start();
             register_hex(0x00e2); // â
             unicode_input_finish();
             break;
         default:
+            // Should not happen
             register_code(KC_A);
             unregister_code(KC_A);
     }
