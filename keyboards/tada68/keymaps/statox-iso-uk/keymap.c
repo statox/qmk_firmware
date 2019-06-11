@@ -151,19 +151,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------------------------------------------|
    * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|     |Del |
    * |-------------------------------------------------------    -----|
-   * |FN     |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;| '|  #|Entr|PgUp|
+   * |FN1    |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;| '|  #|Entr|PgUp|
    * |----------------------------------------------------------------|
    * |Shi/(|  \ |  Z|  X|  C|  V|  B|  N|  M|  ,|  .| /|Rshi/)|Up|PgDn|
    * |----------------------------------------------------------------|
-   * |Ctrl|Win |Alt |        Space          |Alt| FN|Ctrl|Lef|Dow|Rig |
+   * |Ctrl|Win |Alt |  Layer _NL or Space   |Alt|FN2|Ctrl|Lef|Dow|Rig |
    * `----------------------------------------------------------------'
+   *
+   * FN1 => Momentarily activate Navigation layer
+   * FN2 => One shot symbol layer (TODO find something better to do with that)
    */
   [_BL] = LAYOUT_iso(
     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS, KC_EQL,  KC_BSPC, KC_GRV,  \
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC, KC_RBRC,          KC_DEL,  \
     MO(_NL), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT, KC_NUHS, KC_ENT,  KC_PGUP, \
     KC_LSPO, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_SLSH, KC_RSPC, KC_UP,   KC_PGDN, \
-    KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_RALT, OSL(_SL), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+    KC_LCTL, KC_LGUI, KC_LALT,                  LT(_SL, KC_SPC),                     KC_RALT, OSL(_SL), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
   /* Keymap _NL: Navigation Layer 1
@@ -187,6 +190,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * MsL|MsD|MsU|MsL   => Move the mouse
    * ← | ↓ | ↑ | →     => Move the arrow keys
    * MwL|MwD|MwU |MwR  => Scroll the mouse wheel
+   * L+, L- => Change Led brightness
+   * V+, V- => Change volume
+   * B+, B- => Change screen brightness
+   * Eac, Aac => Tap dances to get accentuated characters
    */
   [_NL] = LAYOUT_iso(
     _______, KC_F1,    KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_ASUP, \
@@ -198,24 +205,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Keymap _SL: Symbols Layer 2
    * ,----------------------------------------------------------------.
-   * |   | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|       |    |
+   * |   | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|       |Home|
    * |----------------------------------------------------------------|
-   * |     |   |   | é |   |   |   | ù |   | ò |   |   |   |     |    |
+   * |     |   |   | é |   |   |CIn| ù |   | ò |Sin|   |   |     |End |
    * |-------------------------------------------------------    -----|
-   * |       | à |   |   |   |   |   |   |   |   |   |  |   |    |    |
+   * |       | à |   |   |   |   |   |   |   |   |   |  |   |    |PgUp|
    * |----------------------------------------------------------------|
-   * |     |   |   |   | ç |   |   |   |   |    |   |  |      |  |    |
+   * |     |   |   |   | ç |   |   |   |   |    |   |  |      |  |PgDn|
    * |----------------------------------------------------------------|
    * |    |    |    |                       |   |   |    |   |   |    |
    * `----------------------------------------------------------------'
+   *
+   * Cin => Ctrl+Ins equivalent of Ctrl+C to copy selected text
+   * Sin => Shift+Ins equivalent of Ctrl+V to paste copied text
    */
 
   [_SL] = LAYOUT_iso(
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, \
-    _______, _______, _______, E_AIGUE, _______, _______, _______, U_GRAVE, _______, O_GRAVE, _______, _______, _______,          _______, \
-    _______, A_GRAVE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, C_CEDIL, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______,                    _______,                           _______, _______, _______, _______, _______, _______
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,        KC_F7,   KC_F8,   KC_F9,   KC_F10,       KC_F11,  KC_F12,  _______, KC_HOME, \
+    _______, _______, _______, E_AIGUE, _______, _______, RCTL(KC_INS), U_GRAVE, _______, O_GRAVE, RSFT(KC_INS), _______, _______,          KC_END , \
+    _______, A_GRAVE, _______, _______, _______, _______, _______,      _______, _______, _______, _______,      _______, _______, _______, KC_PGUP, \
+    _______, _______, _______, _______, C_CEDIL, _______, _______,      _______, _______, _______, _______,      _______, _______, _______, KC_PGDN, \
+    _______, _______, _______,                    _______,                                _______, _______,      _______, _______, _______, _______
     ),
 };
 
