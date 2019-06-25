@@ -36,6 +36,7 @@
 #define SW_CHROM S(C(A(KC_C))) // Chromium
 #define SW_SLACK S(C(A(KC_S))) // Slack
 #define SW_TERMI S(C(A(KC_A))) // Current Terminal emulator
+#define SW_POSTM S(C(A(KC_P))) // Postman
 
 /*
  * Tap Dance Declarations
@@ -207,13 +208,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * SP1 => Switch to the current active window of Chromium
    * SP2 => Switch to the current active window of my current favorite terminal emulator
    * SP3 => Switch to the current active window of Slack
+   * SP4 => Switch to the current active window of Postman
    */
   [_NL] = LAYOUT_iso(
-    _______, SW_CHROM, SW_TERMI, SW_SLACK, KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_ASUP, \
-    _______, _______,  _______,  TD(E_AC), _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,          KC_ASDN, \
-    _______, TD(A_AC), _______,  _______,  KC_BTN1, KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______, _______, _______, KC_ASTG, \
-    _______, _______,  _______,  _______,  BL_DEC,  BL_TOGG, BL_INC,  KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______, KC_MUTE, KC_VOLU, KC_ASRP, \
-    _______, _______,  _______,                     _______,                            _______, _______, _______, KC_BRID, KC_VOLD, KC_BRIU
+    _______, SW_CHROM, SW_TERMI, SW_SLACK, SW_POSTM, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_ASUP, \
+    _______, _______,  _______,  TD(E_AC), _______,  _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,          KC_ASDN, \
+    _______, TD(A_AC), _______,  _______,  KC_BTN1,  KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______, _______, _______, KC_ASTG, \
+    _______, _______,  _______,  _______,  BL_DEC,   BL_TOGG, BL_INC,  KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______, KC_MUTE, KC_VOLU, KC_ASRP, \
+    _______, _______,  _______,                      _______,                            _______, _______, _______, KC_BRID, KC_VOLD, KC_BRIU
     ),
 
   /* Keymap _SL: Symbols Layer 2
