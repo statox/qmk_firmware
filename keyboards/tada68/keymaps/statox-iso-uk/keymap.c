@@ -43,13 +43,15 @@
  */
 enum {
     E_AC,
-    A_AC
+    A_AC,
+    O_AC,
+    U_AC
 };
 
 /*
  * Tap Dance Definitions
  */
-// Switch between é, è, ê and e
+// Switch between accentuated e
 void accent_e (qk_tap_dance_state_t *state, void *user_data) {
     int nbOfCases = 3;
     switch (state->count % nbOfCases) {
@@ -75,7 +77,7 @@ void accent_e (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Switch between à, â and a
+// Switch between accentuated a
 void accent_a (qk_tap_dance_state_t *state, void *user_data) {
     int nbOfCases = 2;
     switch (state->count % nbOfCases) {
@@ -96,12 +98,66 @@ void accent_a (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+// Switch between accentuated o
+void accent_o (qk_tap_dance_state_t *state, void *user_data) {
+    int nbOfCases = 3;
+    switch (state->count % nbOfCases) {
+        case 1:
+            unicode_input_start();
+            register_hex(0x00f4);   // ô
+            unicode_input_finish();
+            break;
+        case 2:
+            unicode_input_start();
+            register_hex(0x00f2); // ò
+            unicode_input_finish();
+            break;
+        case 0:
+            unicode_input_start();
+            register_hex(0x00f6); // ö
+            unicode_input_finish();
+            break;
+        default:
+            // Should not happen
+            register_code(KC_O);
+            unregister_code(KC_O);
+    }
+}
+
+// Switch between accentuated u
+void accent_u (qk_tap_dance_state_t *state, void *user_data) {
+    int nbOfCases = 3;
+    switch (state->count % nbOfCases) {
+        case 1:
+            unicode_input_start();
+            register_hex(0x00fb); // û
+            unicode_input_finish();
+            break;
+        case 2:
+            unicode_input_start();
+            register_hex(0x00f9); // ù
+            unicode_input_finish();
+            break;
+        case 0:
+            unicode_input_start();
+            register_hex(0x00fa); // ú
+            unicode_input_finish();
+            break;
+        default:
+            // Should not happen
+            register_code(KC_U);
+            unregister_code(KC_U);
+    }
+}
+
 /*
  * Tap Dance Registrations
  */
 qk_tap_dance_action_t tap_dance_actions[] = {
   [E_AC] = ACTION_TAP_DANCE_FN (accent_e),
-  [A_AC] = ACTION_TAP_DANCE_FN (accent_a)
+  [A_AC] = ACTION_TAP_DANCE_FN (accent_a),
+  [O_AC] = ACTION_TAP_DANCE_FN (accent_o),
+  [U_AC] = ACTION_TAP_DANCE_FN (accent_u)
 };
 
 
@@ -222,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,----------------------------------------------------------------.
    * |   | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|       |Home|
    * |----------------------------------------------------------------|
-   * |     |   |   | é |   |   |CIn| ù |   | ò |Sin|   |   |     |End |
+   * |     |   |   | é |   |   |CIn|Uac|   |Oac|Sin|   |   |     |End |
    * |-------------------------------------------------------    -----|
    * |       | à |   |   |   |   |   |   |   |   |   |  |   |    |PgUp|
    * |----------------------------------------------------------------|
@@ -236,11 +292,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_SL] = LAYOUT_iso(
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,        KC_F7,   KC_F8,   KC_F9,   KC_F10,       KC_F11,  KC_F12,  _______, KC_HOME, \
-    _______, _______, _______, E_AIGUE, _______, _______, RCTL(KC_INS), U_GRAVE, _______, O_GRAVE, RSFT(KC_INS), _______, _______,          KC_END , \
-    _______, A_GRAVE, _______, _______, _______, _______, _______,      _______, _______, _______, _______,      _______, _______, _______, KC_PGUP, \
-    _______, _______, _______, _______, C_CEDIL, _______, _______,      _______, _______, _______, _______,      _______, _______, _______, KC_PGDN, \
-    _______, _______, _______,                    _______,                                _______, _______,      _______, _______, _______, _______
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,        KC_F7,    KC_F8,   KC_F9,    KC_F10,       KC_F11,  KC_F12,  _______, KC_HOME, \
+    _______, _______, _______, E_AIGUE, _______, _______, RCTL(KC_INS), TD(U_AC), _______, TD(O_AC), RSFT(KC_INS), _______, _______,          KC_END , \
+    _______, A_GRAVE, _______, _______, _______, _______, _______,      _______,  _______, _______,  _______,      _______, _______, _______, KC_PGUP, \
+    _______, _______, _______, _______, C_CEDIL, _______, _______,      _______,  _______, _______,  _______,      _______, _______, _______, KC_PGDN, \
+    _______, _______, _______,                    _______,                                 _______,  _______,      _______, _______, _______, _______
     ),
 };
 
