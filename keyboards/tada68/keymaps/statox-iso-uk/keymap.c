@@ -215,9 +215,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,----------------------------------------------------------------.
    * |FN3 | 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |~ ` |
    * |----------------------------------------------------------------|
-   * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|     |Del |
+   * |Tab* |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P| [*|  ]|     |Del |
    * |-------------------------------------------------------    -----|
-   * |FN1    |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;| '|  #|Entr|PgUp|
+   * |FN1    |  A|  S|  D|  F|  G|  H|  J|  K|  L|;* | '|  #|Entr|PgUp|
    * |----------------------------------------------------------------|
    * |Shi/(|  \ |  Z|  X|  C|  V|  B|  N|  M|  ,|  .| /|Rshi/)|Up|PgDn|
    * |----------------------------------------------------------------|
@@ -227,13 +227,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * FN1 => Momentarily activate Navigation layer
    * FN2 => One shot symbol layer (TODO find something better to do with that)
    * FN3 => If pressed alone send an escape if held with another key, trigger _SL
+   * ;*  => Left control when held, ;/: when taped
+   * Tab*=> Left shift when held, Tab when taped
+   * [*=> Left shift when held, [ when taped
    */
   [_BL] = LAYOUT_iso(
-    LT(_SL, KC_ESC),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS, KC_EQL,  KC_BSPC, KC_GRV,  \
-    KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC, KC_RBRC,          KC_DEL,  \
-    MO(_NL),          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT, KC_NUHS, KC_ENT,  KC_PGUP, \
-    KC_LSPO,          KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_SLSH, KC_RSPC, KC_UP,   KC_PGDN, \
-    KC_LCTL,          KC_LGUI, KC_LALT,                      KC_SPC,                          KC_RALT, OSL(_SL), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+    LT(_SL, KC_ESC),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,            KC_MINS,        KC_EQL,  KC_BSPC, KC_GRV,  \
+    SFT_T(KC_TAB),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,            SFT_T(KC_LBRC), KC_RBRC,          KC_DEL,  \
+    MO(_NL),          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    CTL_T(KC_SCLN),  KC_QUOT,        KC_NUHS, KC_ENT,  KC_PGUP, \
+    KC_LSPO,          KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,          KC_SLSH,        KC_RSPC, KC_UP,   KC_PGDN, \
+    KC_LCTL,          KC_LGUI, KC_LALT,                      KC_SPC,                          KC_RALT, OSL(_SL),        KC_RCTL,        KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
   /* Keymap _NL: Navigation Layer 1
