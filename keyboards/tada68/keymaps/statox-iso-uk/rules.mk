@@ -11,8 +11,8 @@ UNICODE_ENABLE = yes        # Unicode
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-AUTO_SHIFT_ENABLE = yes     # Automatically shift keys when they are held long enough https://beta.docs.qmk.fm/features/feature_auto_shift
 # Disabled
+AUTO_SHIFT_ENABLE =  no     # Automatically shift keys when they are held long enough https://beta.docs.qmk.fm/features/feature_auto_shift
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
 CONSOLE_ENABLE = no         # Console for debug(+400)
 MIDI_ENABLE = no            # MIDI controls
